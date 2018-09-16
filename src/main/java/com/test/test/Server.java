@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class Server {
-    @RequestMapping(value = "/HelloWorld", method = RequestMethod.GET)
+    @RequestMapping(value = "/HelloWorld!", method = RequestMethod.GET)
     public String hello() {
-        return JSONObject.quote("Hello World");
+        return JSONObject.quote("Hello World!");
     }
 
     @RequestMapping(value = "/datum", method = RequestMethod.POST)
