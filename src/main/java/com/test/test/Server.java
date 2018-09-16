@@ -21,6 +21,6 @@ public class Server {
 
     @RequestMapping(value = "/datum", method = RequestMethod.OPTIONS)
     public String options () {
-        return JSONObject.quote("PUT: Prosimo uporabite format: datum?datum=dd-MM-1991");
+        return JSONObject.quote("PUT: Prosimo uporabite format: datum?datum=yyyy-dd-MM");
     }
 }

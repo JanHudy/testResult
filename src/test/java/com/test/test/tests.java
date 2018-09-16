@@ -16,9 +16,7 @@ public class tests {
         ali_vrne_HelloWorld();
     }
     @Test
-    public void
-    ali_vrne_HelloWorld()
-            throws IOException {
+    public void ali_vrne_HelloWorld() throws IOException {
 
         HttpUriRequest request = new HttpGet( "http://localhost:8080/HelloWorld" );
 
