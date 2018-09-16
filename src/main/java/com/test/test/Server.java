@@ -18,9 +18,4 @@ public class Server {
         Methods.createObject(dateSQL);
         return JSONObject.quote("Ukaz je bil oddan");
     }
-
-    @RequestMapping(value = "/datum", method = RequestMethod.OPTIONS)
-    public String options () {
-        return JSONObject.quote("PUT: Prosimo uporabite format: datum?datum=yyyy-dd-MM");
-    }
 }
