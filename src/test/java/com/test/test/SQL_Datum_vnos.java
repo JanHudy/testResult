@@ -1,6 +1,7 @@
 package com.test.test;
 
 import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.impl.client.HttpClientBuilder;
@@ -18,7 +19,7 @@ public class SQL_Datum_vnos {
 
     @Test
     public void ali_vrne_datum()  throws IOException {
-        HttpUriRequest request = new HttpPut("http://localhost:8080/datum?datum=1111-11-11");
+        HttpUriRequest request = new HttpPost("http://localhost:8080/datum?datum=1111-11-11");
         HttpResponse response = HttpClientBuilder.create().build().execute( request );
         Date date = getDatum();
 
