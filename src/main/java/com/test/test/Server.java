@@ -12,7 +12,7 @@ public class Server {
         return JSONObject.quote("Hello World");
     }
 
-    @RequestMapping(value = "/datum", method = RequestMethod.PUT)
+    @RequestMapping(value = "/datum", method = RequestMethod.POST)
     public @ResponseBody String updateUser( @RequestParam String datum) {
         java.sql.Date dateSQL = Methods.parse(datum);
         Methods.createObject(dateSQL);
