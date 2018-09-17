@@ -18,11 +18,13 @@ public class SQL_Datum_vnos {
 
     @Test
     public void ali_vrne_datum()  throws IOException {
-        HttpUriRequest request = new HttpPost("http://localhost:8080/datum?datum=1111-11-11");
+        HttpUriRequest request = new HttpPost("http://localhost:8080/datum?datum=0001-1-10");
         HttpResponse response = HttpClientBuilder.create().build().execute( request );
         Date date = getDatum();
 
-        Assert.assertEquals(Date.valueOf("1111-11-11"), date);
+        Assert.assertEquals(Date.valueOf("0001-1-10"), date);
+
+        deleteDatum();
     }
 
     public Connection connect() throws SQLException {
@@ -44,5 +46,17 @@ public class SQL_Datum_vnos {
             System.out.println(ex.getMessage());
         }
         return null;
+    }
+
+    public void deleteDatum() {
+        String SQL = "DELETE FROM datum where DATE(datum) = '0001-01-10'";
+        try {
+            Connection conn = connect();
+            Statement stmt = conn.createStatement();
+            stmt.executeUpdate(SQL);
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
     }
 }
