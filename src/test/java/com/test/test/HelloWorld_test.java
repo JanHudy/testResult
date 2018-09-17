@@ -10,7 +10,7 @@ import org.junit.Test;
 
 import java.io.IOException;
 
-public class tests {
+public class HelloWorld_test {
 
     public void main(System[] args) throws IOException {
         ali_vrne_HelloWorld();
@@ -18,11 +18,11 @@ public class tests {
     @Test
     public void ali_vrne_HelloWorld() throws IOException {
 
-        HttpUriRequest request = new HttpGet( "http://localhost:8080/HelloWorld" );
+        HttpUriRequest request = new HttpGet( "http://localhost:8080/HelloWorld!" );
 
         HttpResponse response = HttpClientBuilder.create().build().execute( request );
         String responseString = new BasicResponseHandler().handleResponse(response);
 
-        Assert.assertEquals("\"Hello World\"", responseString);
+        Assert.assertEquals("\"Hello World!\"", responseString);
     }
 }
