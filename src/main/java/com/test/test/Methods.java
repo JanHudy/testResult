@@ -1,21 +1,23 @@
 package com.test.test;
 
 import java.sql.Date;
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Methods {
 
-    public static java.sql.Date parse (String datum) {
+    public static java.sql.Date parseDate (String datum) {
         try {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            java.util.Date date = sdf.parse(datum);
-            java.sql.Date dateSQL = new java.sql.Date(date.getTime());
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("u-M-d");
+            LocalDate date = LocalDate.parse(datum, formatter);
+            java.sql.Date dateSQL = Date.valueOf(date);
             return dateSQL;
-        } catch (java.text.ParseException e) {
-            e.printStackTrace();
+        } catch (DateTimeParseException ex) {
             return null;
         }
     }
+
 
     public static void createObject(Date datum) {
         SQLcontrol sqlcontrol = new SQLcontrol();
