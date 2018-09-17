@@ -26,7 +26,7 @@ public class SQL_Datum_vnos {
     }
 
     public Connection connect() throws SQLException {
-        return DriverManager.getConnection("jdbc:postgresql://localhost:5432/datum", "me", "pass");
+        return DriverManager.getConnection("jdbc:postgresql://localhost:5432/datum", "postgres", "postgres");
     }
 
     public Date  getDatum() {
@@ -34,10 +34,10 @@ public class SQL_Datum_vnos {
 
         try {
             Connection conn = connect();
-            Statement stmt = conn.createStatement();
+            Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
 
             ResultSet rs = stmt.executeQuery(SQL);
-            rs.next();
+            rs.last();
             return rs.getDate("datum");
 
         } catch (SQLException ex) {

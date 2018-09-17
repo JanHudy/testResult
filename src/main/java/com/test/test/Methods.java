@@ -13,8 +13,8 @@ public class Methods {
             return dateSQL;
         } catch (java.text.ParseException e) {
             e.printStackTrace();
+            return null;
         }
-        return null;
     }
 
     public static void createObject(Date datum) {

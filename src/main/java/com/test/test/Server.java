@@ -15,7 +15,11 @@ public class Server {
     @RequestMapping(value = "/datum", method = RequestMethod.POST)
     public @ResponseBody String updateUser( @RequestParam String datum) {
         java.sql.Date dateSQL = Methods.parse(datum);
-        Methods.createObject(dateSQL);
-        return JSONObject.quote("Ukaz je bil oddan");
+        if(dateSQL == null) {
+            return JSONObject.quote("Prosimo uporabite format yyyy-MM-dd");
+        } else {
+            Methods.createObject(dateSQL);
+            return JSONObject.quote("Ukaz je bil oddan");
+        }
     }
 }
