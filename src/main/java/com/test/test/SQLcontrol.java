@@ -21,18 +21,18 @@ public class SQLcontrol {
     public void insertDatum(Object object) {
         String SQL = "INSERT INTO datum(datum) " + "VALUES(?)";
 
+        try (Connection conn = connect()) {
 
-        try (Connection conn = connect();
-
-             PreparedStatement pstmt = conn.prepareStatement(SQL,
-                     Statement.RETURN_GENERATED_KEYS)) {
-
+            PreparedStatement pstmt = conn.prepareStatement(SQL,
+                     Statement.RETURN_GENERATED_KEYS);
 
             pstmt.setDate(1, object.getDatum());
+
             pstmt.executeUpdate();
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-            ustvariBazo(object);
+
+            } catch (SQLException ex) {
+                //System.out.println(ex.getMessage());
+                ustvariBazo(object);
         }
 
     }
@@ -48,7 +48,7 @@ public class SQLcontrol {
         }
         try (Connection conn = connect()) {
             Statement st = conn.createStatement();
-            st.executeUpdate("CREATE TABLE datum(datum DATE)");
+            st.executeUpdate("CREATE TABLE datum(id SERIAL, datum DATE)");
             st.close();
             insertDatum(object);
         } catch (SQLException e) {
