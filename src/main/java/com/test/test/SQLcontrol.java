@@ -19,6 +19,13 @@ public class SQLcontrol {
 
 
     public void insertDatum(Object object) {
+        if(checkDatabase()) {
+            ustvariBazo();
+        }
+        if(checkTables()) {
+            ustvariTable();
+        }
+
         String SQL = "INSERT INTO datum(datum) " + "VALUES(?)";
 
         try (Connection conn = connect()) {
@@ -27,33 +34,62 @@ public class SQLcontrol {
                      Statement.RETURN_GENERATED_KEYS);
 
             pstmt.setDate(1, object.getDatum());
-
             pstmt.executeUpdate();
 
-            } catch (SQLException ex) {
-                //System.out.println(ex.getMessage());
-                ustvariBazo(object);
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
         }
-
     }
 
-    public void ustvariBazo(Object object) {
+    public void ustvariBazo() {
         try (Connection conn = connect2()) {
-
             Statement st =conn.createStatement();
             st.executeUpdate("CREATE DATABASE datum");
             st.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public void ustvariTable() {
         try (Connection conn = connect()) {
             Statement st = conn.createStatement();
             st.executeUpdate("CREATE TABLE datum(id SERIAL, datum DATE)");
             st.close();
-            insertDatum(object);
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
 
+    public boolean checkTables() {
+        boolean TF = true;
+        try (Connection conn = connect()) {
+            DatabaseMetaData md = conn.getMetaData();
+            ResultSet rs = md.getTables(null, null, "%", null);
+            while (rs.next()) {
+                if(rs.getString(3).equals("datum")) {
+                    TF = false;
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return TF;
+    }
+
+    public boolean checkDatabase() {
+        boolean TF = true;
+        try (Connection conn = connect()) {
+            DatabaseMetaData md = conn.getMetaData();
+            ResultSet rs = md.getCatalogs();
+            while (rs.next()) {
+                if(rs.getString(1).equals("datum")) {
+                    TF = false;
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return TF;
     }
 }
